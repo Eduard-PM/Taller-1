@@ -1,0 +1,6 @@
+
+# Ignorar el archivo de variables de entorno local
+.env
+
+# Ignorar las dependencias de Node.js
+node_modules
