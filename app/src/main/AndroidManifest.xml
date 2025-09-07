@@ -21,6 +21,9 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".AviseActivity"
+            android:exported="true" />
+
         <!-- Aquí puedes agregar otras actividades -->
 
     </application>
