@@ -1,0 +1,16 @@
+
+{
+  "name": "service-langchain",
+  "version": "1.0.0",
+  "description": "Servicio para generar mensajes de emergencia con LangChain.",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js"
+  },
+  "dependencies": {
+    "@langchain/core": "^0.1.52",
+    "@langchain/google-genai": "^0.0.10",
+    "twilio": "^4.18.0",
+    "dotenv": "^16.3.1"
+  }
+}
