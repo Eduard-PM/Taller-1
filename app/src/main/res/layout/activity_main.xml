@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="16dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- Título de la app -->
+    <TextView
+        android:id="@+id/tvAppName"
+        android:text="@string/app_name"
+        android:textSize="32sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="24dp"
+        android:gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivAppIcon"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginBottom="24dp"
+        android:background="@drawable/border_image"
+        android:contentDescription="@string/app_icon_desc"
+        android:padding="8dp"
+        android:scaleType="centerInside"
+        app:srcCompat="@mipmap/icono" />
+
+    <!-- Switch para activar app -->
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/switchActivate"
+        android:text="@string/switch_activate"
+        android:layout_marginBottom="24dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <!-- Valores del acelerómetro -->
+    <TextView
+        android:id="@+id/tvAccelValues"
+        android:text="@string/accel_default"
+        android:textSize="18sp"
+        android:layout_marginBottom="24dp"
+        android:gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <!-- Botones -->
+    <Button
+        android:id="@+id/btnHistorial"
+        android:text="@string/btn_historial"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"/>
+
+    <Button
+        android:id="@+id/btnConfiguracion"
+        android:text="@string/btn_configuracion"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"/>
+
+</LinearLayout>
