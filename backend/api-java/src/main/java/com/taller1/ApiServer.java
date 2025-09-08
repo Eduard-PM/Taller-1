@@ -1,11 +1,12 @@
 
 package com.taller1;
 
-import io.javalin.Javalin;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.file.Paths;
+
+import io.javalin.Javalin;
 
 public class ApiServer {
 
@@ -16,7 +17,7 @@ public class ApiServer {
                     it.anyHost();
                 });
             });
-        }).start(7070);
+        }).start("0.0.0.0", 7070);
 
         System.out.println("Servidor Javalin iniciado en el puerto 7070.");
 
@@ -38,7 +39,7 @@ public class ApiServer {
                         String.valueOf(request.getLatitude()),
                         String.valueOf(request.getLongitude())
                 );
-                pb.directory(new java.io.File(serviceDir)); // Establece el directorio de trabajo
+                pb.directory(new java.io.File(serviceDir)); 
 
                 System.out.println("Ejecutando script de Node.js en: " + serviceDir);
                 Process process = pb.start();
@@ -72,7 +73,6 @@ public class ApiServer {
                 ctx.status(500).result("Error interno al procesar la notificación.");
                 return;
             }
-            // --- Fin: Lógica para llamar al script de Node.js ---
 
             ctx.status(200).result("Reporte de emergencia para '" + request.getUserName() + "' procesado.");
         });

@@ -14,8 +14,12 @@ const [userName, latitude, longitude] = args;
 const model = new ChatGoogleGenerativeAI({
     apiKey: process.env.GOOGLE_API_KEY,
     modelName: "gemini-2.5-flash",
-    maxOutputTokens: 2048,
 });
+
+console.log("--- VERIFICANDO VARIABLES DE ENTORNO ---");
+console.log("SID de la cuenta:", process.env.TWILIO_ACCOUNT_SID);
+console.log("Número de teléfono:", process.env.TWILIO_PHONE_NUMBER);
+console.log("------------------------------------");
 
 const twilioClient = new Twilio(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
 
@@ -48,8 +52,8 @@ async function sendSms(message) {
     try {
         const twilioResponse = await twilioClient.messages.create({
             body: message,
-            from: from,
-            to: to,
+            from: `whatsapp:${from}`,
+            to: `whatsapp:${to}`,
         });
         console.log("SMS enviado con éxito. SID: ", twilioResponse.sid);
     } catch (error) {
