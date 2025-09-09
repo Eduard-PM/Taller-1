@@ -26,7 +26,7 @@
                 android:layout_height="48dp"
                 android:background="@android:color/transparent"
                 android:src="@android:drawable/ic_menu_revert"
-                android:contentDescription="Retroceder"
+                android:contentDescription="@string/btnBackDesc"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"/>
@@ -55,7 +55,7 @@
                 android:layout_height="48dp"
                 android:background="@android:color/transparent"
                 android:src="@android:drawable/ic_media_play"
-                android:contentDescription="Play/Pause"
+                android:contentDescription="@string/btnPlayPauseDesc"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"

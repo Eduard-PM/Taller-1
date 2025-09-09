@@ -14,4 +14,6 @@
     <string name="btn_no">No</string>
     <string name="acel_notification">Recolectando datos del acelerómetro</string>
     <string name="historial_title">Historial</string>
+    <string name="btnPlayPauseDesc">Play/Pause</string>
+    <string name="btnBackDesc">Retroceder</string>
 </resources>
