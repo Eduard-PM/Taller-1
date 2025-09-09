@@ -38,7 +38,7 @@
         android:id="@+id/switchActivate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
+        android:layout_marginBottom="16dp"
         android:fontFamily="sans-serif-black"
         android:text="@string/switch_activate"
         android:textSize="16sp" />
@@ -48,12 +48,23 @@
         android:id="@+id/tvAccelValues"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
+        android:layout_marginBottom="8dp"
         android:fontFamily="sans-serif-medium"
         android:gravity="center"
         android:text="@string/accel_default"
         android:textColor="@android:color/black"
         android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/tvAccelResultant"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/accel_res_default"
+        android:textSize="20sp"
+        android:layout_marginBottom="16dp"
+        android:fontFamily="sans-serif-medium"
+        android:gravity="center"
+        android:textColor="@android:color/black"/>
 
     <!-- Botones -->
     <Button

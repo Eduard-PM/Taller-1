@@ -2,12 +2,16 @@
     <string name="app_name">Fall App</string>
     <string name="app_icon_desc">Icono de la aplicación Fall App</string>
     <string name="switch_activate">Activar detección</string>
-    <string name="accel_default">X: 0.0, Y: 0.0, Z: 0.0</string>
+    <string name="accel_default">X: 0.00, Y: 0.00, Z: 0.00</string>
     <string name="accel_format">X: %.2f, Y: %.2f, Z: %.2f</string>
+    <string name="accel_res_default">aRes: 0.00</string>
+    <string name="accel_res_format">aRes: %.2f</string>
     <string name="btn_historial">Historial</string>
     <string name="btn_configuracion">Configuración</string>
     <string name="avise_question">¿Estás bien?</string>
     <string name="avise_count">10</string>
     <string name="btn_yes">Sí</string>
     <string name="btn_no">No</string>
+    <string name="acel_notification">Recolectando datos del acelerómetro</string>
+    <string name="historial_title">Historial</string>
 </resources>

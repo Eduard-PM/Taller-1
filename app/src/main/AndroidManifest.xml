@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.ramosuni.fallapp">
 
     <uses-permission android:name="android.permission.BODY_SENSORS"/>
     <uses-feature android:name="android.hardware.sensor.accelerometer"/>
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC"/>
 
     <application
         android:allowBackup="true"
@@ -21,10 +23,15 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".HistorialActivity" android:exported="true"/>
+
         <activity android:name=".AviseActivity"
             android:exported="true" />
 
-        <!-- Aquí puedes agregar otras actividades -->
+        <service
+            android:name=".services.LinearAccelerometerService"
+            android:exported="false"
+            android:foregroundServiceType="dataSync"/>
 
     </application>
 </manifest>

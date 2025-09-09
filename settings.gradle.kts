@@ -16,9 +16,14 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+        maven("https://jitpack.io")
     }
 }
 
 rootProject.name = "FallApp"
 include(":app")
- 
+
+// 🔹 Redirigir carpeta build global
+gradle.beforeProject {
+    project.layout.buildDirectory.set(file("${rootDir}/out/${project.name}"))
+}
