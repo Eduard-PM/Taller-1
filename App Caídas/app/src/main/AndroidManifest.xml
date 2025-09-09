@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.ramosuni.fallapp">
+
+    <uses-permission android:name="android.permission.SEND_SMS" />
+
+    <uses-permission android:name="android.permission.BODY_SENSORS"/>
+    <uses-feature android:name="android.hardware.sensor.accelerometer"/>
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/icono"
+        android:roundIcon="@mipmap/icono"
+        android:label="Fall Detector"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.FallApp.NoActionBar">
+
+        <activity android:name=".MainActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".AviseActivity"
+            android:exported="true" />
+
+        <!-- Aquí puedes agregar otras actividades -->
+
+    </application>
+</manifest>

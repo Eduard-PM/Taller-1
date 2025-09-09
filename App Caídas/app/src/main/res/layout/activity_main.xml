@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/teal_200"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <!-- Título de la app -->
+    <TextView
+        android:id="@+id/tvAppName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:fontFamily="sans-serif-black"
+        android:gravity="center"
+        android:text="@string/app_name"
+        android:textColor="@color/black"
+        android:textSize="60sp"
+        android:textStyle="bold" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivAppIcon"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginBottom="24dp"
+        android:background="@drawable/border_image"
+        android:contentDescription="@string/app_icon_desc"
+        android:padding="8dp"
+        android:scaleType="centerInside"
+        app:srcCompat="@mipmap/icono" />
+
+    <!-- Switch para activar app -->
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/switchActivate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:fontFamily="sans-serif-black"
+        android:text="@string/switch_activate"
+        android:textSize="16sp" />
+
+    <!-- Valores del acelerómetro -->
+    <TextView
+        android:id="@+id/tvAccelValues"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:fontFamily="sans-serif-medium"
+        android:gravity="center"
+        android:text="@string/accel_default"
+        android:textColor="@android:color/black"
+        android:textSize="20sp" />
+
+    <!-- Botones -->
+    <Button
+        android:id="@+id/btnHistorial"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="#303F9F"
+        android:text="@string/btn_historial"
+        android:textSize="16sp" />
+
+    <Button
+        android:id="@+id/btnConfiguracion"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#303F9F"
+        android:text="@string/btn_configuracion"
+        android:textSize="16sp" />
+
+</LinearLayout>
