@@ -1,90 +1,102 @@
 package com.ramosuni.fallapp;
 
-import android.app.KeyguardManager;
-import android.content.Context;
+import android.content.ComponentName;
+import android.content.Intent;
+import android.content.ServiceConnection;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.CountDownTimer;
+import android.os.IBinder;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-@SuppressWarnings("FieldMayBeFinal")
+import com.ramosuni.fallapp.services.LinearAccelerometerService;
+
 public class AviseActivity extends AppCompatActivity {
+
     private TextView tvCount;
     private Button btnYes, btnNo;
-    private CountDownTimer countDownTimer;
-    private int time = 10; // segundos por defecto
+
+    private LinearAccelerometerService service;
+    private boolean bound = false;
+
+    private ServiceConnection connection = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder binder) {
+            LinearAccelerometerService.LocalBinder localBinder = (LinearAccelerometerService.LocalBinder) binder;
+            service = localBinder.getService();
+            bound = true;
+
+            // Registrar listener del countdown
+            service.setCountdownListener(new LinearAccelerometerService.CountdownListener() {
+                @Override
+                public void onTick(long millisUntilFinished) {
+                    runOnUiThread(() -> tvCount.setText(String.valueOf(millisUntilFinished / 1000)));
+                }
+
+                @Override
+                public void onFinish() {
+                    runOnUiThread(() -> tvCount.setText(R.string.mensaje_enviado));
+                    // Cerrar la Activity automáticamente
+                    finish();
+                }
+            });
+
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+            bound = false;
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        // Compatibilidad según la versión de Android
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1) {
-            // Métodos modernos (API 27+)
-            setShowWhenLocked(true);
-            setTurnScreenOn(true);
-
-            KeyguardManager km = (KeyguardManager) getSystemService(Context.KEYGUARD_SERVICE);
-            if (km != null) {
-                km.requestDismissKeyguard(this, null);
-            }
-        } else {
-            // Flags para versiones antiguas
-            getWindow().addFlags(
-                    WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON |
-                            WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED |
-                            WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON |
-                            WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD
-            );
-        }
-
         setContentView(R.layout.activity_avise);
 
         tvCount = findViewById(R.id.tvCount);
         btnYes = findViewById(R.id.btnYes);
         btnNo = findViewById(R.id.btnNo);
 
-        // Iniciar contador
-        startCount();
-
         btnYes.setOnClickListener(v -> {
-            stopCount();
-            Toast.makeText(this, "Has confirmado que estás bien ✅", Toast.LENGTH_SHORT).show();
-            finish(); // Solo se cierra con "Sí"
+            if (bound && service != null) service.cancelEmergencyMessage();
+            finish();
         });
 
-        btnNo.setOnClickListener(v -> setNo());
-    }
+        btnNo.setOnClickListener(v -> {
+            runOnUiThread(() -> tvCount.setText(R.string.mensaje_enviado));
+            finish();
+        });
 
-    private void startCount() {
-        countDownTimer = new CountDownTimer(time * 1000L, 1000) {
-            @Override
-            public void onTick(long millisUntilFinished) {
-                tvCount.setText(String.valueOf(millisUntilFinished / 1000));
-            }
-
-            @Override
-            public void onFinish() {
-                tvCount.setText("0");
-                setNo(); // cuando se acaba el tiempo, se dispara como "No"
-            }
-        };
-        countDownTimer.start();
-    }
-
-    private void stopCount() {
-        if (countDownTimer != null) {
-            countDownTimer.cancel();
+        // Mostrar sobre la pantalla bloqueada
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1) {
+            setShowWhenLocked(true);
+            setTurnScreenOn(true);
+        } else {
+            getWindow().addFlags(
+                    WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED |
+                            WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON
+            );
         }
     }
-    private void setNo() {
-        stopCount();
-        Toast.makeText(this, "Se detectó que no estás bien ❌", Toast.LENGTH_SHORT).show();
-        // Aquí podrías enviar alerta real
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        // Conectar con el servicio
+        Intent intent = new Intent(this, LinearAccelerometerService.class);
+        bindService(intent, connection, BIND_AUTO_CREATE);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (bound) {
+            unbindService(connection);
+            bound = false;
+        }
     }
 }

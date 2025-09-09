@@ -16,4 +16,5 @@
     <string name="historial_title">Historial</string>
     <string name="btnPlayPauseDesc">Play/Pause</string>
     <string name="btnBackDesc">Retroceder</string>
+    <string name="mensaje_enviado">Mensaje enviado!</string>
 </resources>

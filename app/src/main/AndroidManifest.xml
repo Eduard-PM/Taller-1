@@ -5,7 +5,12 @@
 
     <uses-permission android:name="android.permission.BODY_SENSORS"/>
     <uses-feature android:name="android.hardware.sensor.accelerometer"/>
+    <uses-feature android:name="android.hardware.telephony" android:required="false" />
+
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC"/>
+    <uses-permission android:name="android.permission.SEND_SMS"/>
+    <uses-permission android:name="android.permission.RECEIVE_SMS"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
 
     <application
         android:allowBackup="true"
@@ -26,6 +31,9 @@
         <activity android:name=".HistorialActivity" android:exported="true"/>
 
         <activity android:name=".AviseActivity"
+            android:exported="true" />
+
+        <activity android:name=".ConfigurationActivity"
             android:exported="true" />
 
         <service

@@ -1,16 +1,22 @@
 package com.ramosuni.fallapp;
 
+import android.Manifest;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SwitchCompat;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.ramosuni.fallapp.services.LinearAccelerometerService;
@@ -45,6 +51,8 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
+    private static final int REQUEST_SMS_PERMISSION = 123;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,13 +62,21 @@ public class MainActivity extends AppCompatActivity {
         tvAccelResultant = findViewById(R.id.tvAccelResultant);
         SwitchCompat switchActivate = findViewById(R.id.switchActivate);
         Button btnHistorial = findViewById(R.id.btnHistorial);
-        Button btnConfiguracion = findViewById(R.id.btnConfiguracion);
+        Button btnConfiguration = findViewById(R.id.btnConfiguracion);
         ImageView ivAppIcon = findViewById(R.id.ivAppIcon);
 
         boolean savedState = getSharedPreferences("app_prefs", MODE_PRIVATE)
                 .getBoolean("isActive", false);
 
         switchActivate.setChecked(savedState);
+
+        // Pedir permiso si no está concedido
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS)
+                != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.SEND_SMS},
+                    REQUEST_SMS_PERMISSION);
+        }
 
         if (savedState) {
             startService(new Intent(this, LinearAccelerometerService.class));
@@ -89,8 +105,9 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
-        btnConfiguracion.setOnClickListener(v -> {
-            // abrir configuración
+        btnConfiguration.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, ConfigurationActivity.class);
+            startActivity(intent);
         });
     }
 
@@ -105,5 +122,19 @@ public class MainActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         LocalBroadcastManager.getInstance(this).unregisterReceiver(accelReceiver);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == REQUEST_SMS_PERMISSION) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                Toast.makeText(this, "Permiso de SMS concedido", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(this, "Permiso de SMS denegado. No se podrán enviar alertas", Toast.LENGTH_LONG).show();
+            }
+        }
     }
 }
