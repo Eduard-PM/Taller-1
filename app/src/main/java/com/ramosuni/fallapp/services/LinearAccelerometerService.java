@@ -24,7 +24,7 @@ public class LinearAccelerometerService extends Service implements SensorEventLi
     private Sensor linearAccelerometer;
     private DatabaseHelper dbHelper;
 
-    private static final float THRESHOLD = 5.0f; // ajusta según pruebas
+    private static final float THRESHOLD = 15.0f; // ajusta según pruebas
 
     private Handler handler = new Handler();
     private Runnable sendSmsRunnable;
